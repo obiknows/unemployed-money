@@ -1,5 +1,6 @@
 ---
 import '../styles.css'
+import { ThemeToggle } from '../components/ThemeToggle.tsx';
 
 export interface Props {
   title: string;
@@ -12,7 +13,7 @@ const year = new Date().getFullYear();
 ---
 
 <!DOCTYPE html>
-<html lang="en" class="dark:bg-stone-900 dark:text-white">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
@@ -20,25 +21,46 @@ const year = new Date().getFullYear();
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:wght@400;500;900&family=Space+Mono&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Serif:wght@400;500;900&family=Space+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "dark" || t === "light") {
+            document.documentElement.classList.toggle("dark", t === "dark");
+          } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            document.documentElement.classList.add("dark");
+          }
+        } catch (e) {}
+      })();
+    </script>
     <meta name="generator" content={Astro.generator} />
     <title>{title} — Unemployed Money</title>
   </head>
-  <body>
+  <body class="font-sans">
     <header>
       <div class="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
-        <nav class="flex flex-col justify-between py-6 md:flex-row md:py-10">
+        <nav class="flex flex-col justify-between gap-4 py-6 md:flex-row md:items-center md:py-10">
           <div class="flex flex-row items-center space-x-2">
-            <a href="/" class="flex flex-row items-center mb-2 font-sans text-red-800 uppercase no-underline hover:no-underline">
+            <a
+              href="/"
+              class="flex flex-row items-center mb-2 font-serif text-lg font-bold tracking-tight text-red-800 uppercase no-underline hover:no-underline"
+            >
               <img class="w-10 h-10 mr-2" src="/logo.svg" alt="" />
               Unemployed.
             </a>
           </div>
-          <ul class="grid items-center grid-flow-col gap-6 list-none p-0 m-0 auto-cols-max">
-            <li><a href="/about" class="dark:text-white">About</a></li>
-            <li><a href="/topics" class="dark:text-white">Topics</a></li>
-            <li><a href="/journal" class="dark:text-white">Journal</a></li>
-          </ul>
+          <div class="flex flex-row flex-wrap items-center gap-4 md:gap-6">
+            <ul class="grid items-center grid-flow-col gap-6 list-none p-0 m-0 auto-cols-max text-sm font-medium">
+              <li><a href="/about">About</a></li>
+              <li><a href="/topics">Topics</a></li>
+              <li><a href="/journal">Journal</a></li>
+            </ul>
+            <ThemeToggle client:load />
+          </div>
         </nav>
       </div>
     </header>
@@ -49,9 +71,11 @@ const year = new Date().getFullYear();
 
     <footer class="w-full mt-10">
       <div class="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
-        <div class="flex flex-col items-center gap-4 py-6 border-t border-slate-200">
-          <p>© {year} Unemployed Money™️</p>
-          <div>🎲</div>
+        <div
+          class="flex flex-col items-center gap-4 py-6 border-t border-slate-200 dark:border-slate-700"
+        >
+          <p class="text-sm text-slate-600 dark:text-slate-300">© {year} Unemployed Money™️</p>
+          <div class="text-lg" aria-hidden="true">🎲</div>
         </div>
       </div>
     </footer>

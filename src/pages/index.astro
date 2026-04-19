@@ -34,20 +34,20 @@ function formatDate(dateStr: string) {
 
 <Layout title="Stackin Szn" description="One man's journey to get some unemployed money so he can spend more time with his family.">
   <!-- Hero -->
-  <div class="my-10 dark:text-white">
-    <span class="px-3 py-1 font-mono text-xs font-semibold leading-none tracking-wide text-black uppercase rounded-full bg-amber-500">
+  <div class="my-10">
+    <span class="px-3 py-1 font-mono text-xs font-semibold leading-none tracking-wide text-black uppercase rounded-full bg-amber-500 dark:text-black">
       Stackin Szn
     </span>
-    <h1 class="mt-4 text-3xl leading-normal text-black transition-all ease-in-out dark:text-white md:text-5xl md:leading-snug">
+    <h1 class="mt-4 font-serif text-3xl leading-normal text-black dark:text-white md:text-5xl md:leading-snug">
       One man's journey to get some unemployed money so he can spend more time with his family.
     </h1>
   </div>
 
   <!-- Featured Posts -->
-  <h2 class="pb-6 my-6 text-3xl text-slate-600">Featured Posts</h2>
+  <h2 class="pb-6 my-6 font-sans text-2xl font-semibold text-slate-600 dark:text-slate-400 md:text-3xl">Featured Posts</h2>
   <div class="grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-8">
     {featuredPosts.map(post => (
-      <a href={`/posts/${post.id}`} class="flex flex-col w-full h-full overflow-hidden text-black group no-underline hover:no-underline">
+      <a href={`/posts/${post.id}`} class="group flex h-full w-full flex-col overflow-hidden text-black no-underline hover:no-underline dark:text-white">
         {post.data.coverPhoto ? (
           <img
             class="h-[200px] w-full rounded-md object-cover"
@@ -57,24 +57,24 @@ function formatDate(dateStr: string) {
             decoding="async"
           />
         ) : (
-          <div class="h-[200px] w-full rounded-md bg-amber-100" />
+          <div class="h-[200px] w-full rounded-md bg-amber-100 dark:bg-amber-900/30" />
         )}
-        <div class="flex flex-col w-full py-4 capitalize dark:text-white group-hover:text-red-800 h-max">
-          <span class="h-5 mb-2 text-xl font-bold">{post.data.title}</span>
+        <div class="flex h-max w-full flex-col py-4 group-hover:text-red-800 dark:group-hover:text-red-400">
+          <span class="mb-2 font-serif text-xl font-bold uppercase leading-snug">{post.data.title}</span>
         </div>
       </a>
     ))}
   </div>
 
   <!-- Journal Entries -->
-  <h2 class="my-6 text-3xl text-slate-600">Journal Entries</h2>
+  <h2 class="my-6 font-sans text-2xl font-semibold text-slate-600 dark:text-slate-400 md:text-3xl">Journal Entries</h2>
   <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
     {journalPosts.map(post => (
-      <div class="flex flex-col items-center justify-center px-4 py-4 my-2 border-b rounded dark:bg-stone-600 hover:bg-amber-200 bg-amber-100 md:my-0 border-slate-200">
-        <a href={`/posts/${post.id}`} class="no-underline hover:no-underline w-full text-center">
-          <h2 class="my-2 text-center hover:underline hover:text-red-800">{post.data.title}</h2>
+      <div class="my-2 flex flex-col items-center justify-center rounded border-b border-slate-200 bg-amber-100 px-4 py-4 hover:bg-amber-200 dark:border-slate-600 dark:bg-stone-600 dark:hover:bg-stone-500 md:my-0">
+        <a href={`/posts/${post.id}`} class="w-full text-center no-underline hover:no-underline">
+          <h2 class="my-2 text-center font-serif text-base font-bold leading-snug text-black hover:underline hover:text-red-800 dark:text-white dark:hover:text-red-300 md:text-lg">{post.data.title}</h2>
         </a>
-        <div class="items-center leading-relaxed uppercase">
+        <div class="font-sans uppercase leading-relaxed text-slate-500 dark:text-slate-300">
           <time>{formatDate(post.data.date)}</time>
         </div>
       </div>
