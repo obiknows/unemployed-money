@@ -1,23 +1,60 @@
-import { config, fields, collection } from '@keystatic/core';
+import { config, fields, collection } from "@keystatic/core";
 
 export default config({
   storage: {
-    kind: 'local',
+    kind: "local",
   },
   collections: {
     posts: collection({
-      label: 'Posts',
-      slugField: 'title',
-      path: 'src/content/posts/*',
-      format: { contentField: 'content' },
+      label: "Trade Journal",
+      slugField: "slug",
+      path: "src/content/posts/*",
+      format: { contentField: "content" },
       schema: {
-        title: fields.slug({ name: { label: 'Title' } }),
+        title: fields.text({
+          label: "Title",
+          description: "Your voice. Emojis welcome.",
+        }),
+        slug: fields.text({
+          label: "Slug",
+          description: "SEO-friendly URL. e.g. spy-puts-fomc-july-2022",
+        }),
+        date: fields.date({
+          label: "Date",
+        }),
+        description: fields.text({
+          label: "Meta Description",
+          description: "SEO. 1-2 sentences, factual, keyword rich.",
+          multiline: true,
+        }),
+        type: fields.select({
+          label: "Post Type",
+          options: [
+            { label: "Trade Journal", value: "journal" },
+            { label: "Analysis", value: "analysis" },
+            { label: "Portfolio Update", value: "portfolio" },
+            { label: "AI / Infra", value: "infra" },
+            { label: "Meta", value: "meta" },
+          ],
+          defaultValue: "journal",
+        }),
+        tags: fields.array(fields.text({ label: "Tag" }), {
+          label: "Tags",
+          description:
+            "Tickers, strategies, macro events. e.g. SPY, 0DTE, FOMC",
+          itemLabel: (props) => props.value,
+        }),
+        draft: fields.checkbox({
+          label: "Draft",
+          description: "Check to hide from the site",
+          defaultValue: false,
+        }),
         content: fields.markdoc({
-          label: 'Content',
+          label: "Content",
           options: {
             image: {
-              directory: 'src/assets/images/posts',
-              publicPath: '../../assets/images/posts/',
+              directory: "src/assets/images/posts",
+              publicPath: "../../assets/images/posts/",
             },
           },
         }),
