@@ -49,6 +49,11 @@ export default config({
           description: "Pin to the homepage featured section",
           defaultValue: false,
         }),
+        coverPhoto: fields.text({
+          label: "Cover image URL",
+          description:
+            "Featured card image — full https URL or site path e.g. /images/covers/foo.jpg",
+        }),
         draft: fields.checkbox({
           label: "Draft",
           description: "Check to hide from the site",

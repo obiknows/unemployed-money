@@ -7,6 +7,8 @@ export interface Props {
 }
 
 const { title, description = "One man's journey to get some unemployed money so he can spend more time with his family." } = Astro.props;
+
+const year = new Date().getFullYear();
 ---
 
 <!DOCTYPE html>
@@ -48,7 +50,7 @@ const { title, description = "One man's journey to get some unemployed money so 
     <footer class="w-full mt-10">
       <div class="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
         <div class="flex flex-col items-center gap-4 py-6 border-t border-slate-200">
-          <p>© 2022 Unemployed Money™️</p>
+          <p>© {year} Unemployed Money™️</p>
           <div>🎲</div>
         </div>
       </div>

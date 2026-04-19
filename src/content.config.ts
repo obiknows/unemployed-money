@@ -11,6 +11,11 @@ const posts = defineCollection({
     type: z.enum(["journal", "analysis", "portfolio", "infra", "meta"]),
     tags: z.array(z.string()).optional(),
     featured: z.boolean().default(false),
+    coverPhoto: z.preprocess(
+      (val) =>
+        val === "" || val === null || val === undefined ? undefined : val,
+      z.string().optional(),
+    ),
     draft: z.boolean().default(false),
   }),
 });

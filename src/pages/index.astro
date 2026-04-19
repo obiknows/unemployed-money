@@ -5,7 +5,21 @@ import Layout from '../layouts/Layout.astro';
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 const posts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
-const featuredPosts = posts.filter(p => p.data.featured);
+/** Homepage featured card order (matches original site). */
+const FEATURED_ORDER = [
+  'the-post-game-papers',
+  'unemployed-money-4eva',
+  'affirmations',
+];
+
+const featuredCandidates = posts.filter((p) => p.data.featured);
+const featuredById = new Map(featuredCandidates.map((p) => [p.id, p]));
+const orderedFeatured = FEATURED_ORDER.map((id) => featuredById.get(id)).filter(
+  (p): p is (typeof featuredCandidates)[number] => p != null,
+);
+const extraFeatured = featuredCandidates.filter((p) => !FEATURED_ORDER.includes(p.id));
+const featuredPosts = [...orderedFeatured, ...extraFeatured];
+
 const journalPosts = posts.filter(p => !p.data.featured);
 
 function formatDate(dateStr: string) {
@@ -34,7 +48,17 @@ function formatDate(dateStr: string) {
   <div class="grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-8">
     {featuredPosts.map(post => (
       <a href={`/posts/${post.id}`} class="flex flex-col w-full h-full overflow-hidden text-black group no-underline hover:no-underline">
-        <div class="h-[200px] w-full rounded-md bg-amber-100" />
+        {post.data.coverPhoto ? (
+          <img
+            class="h-[200px] w-full rounded-md object-cover"
+            src={post.data.coverPhoto}
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+        ) : (
+          <div class="h-[200px] w-full rounded-md bg-amber-100" />
+        )}
         <div class="flex flex-col w-full py-4 capitalize dark:text-white group-hover:text-red-800 h-max">
           <span class="h-5 mb-2 text-xl font-bold">{post.data.title}</span>
         </div>
