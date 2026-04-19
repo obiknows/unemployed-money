@@ -25,7 +25,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "deploy": "astro build && rm -rf .wrangler-assets && mkdir -p .wrangler-assets && rsync -a --delete --exclude '_worker.js' dist/ .wrangler-assets/ && wrangler deploy dist/_worker.js --assets .wrangler-assets && rm -rf .wrangler-assets",
+    "deploy:prepare-assets": "rm -rf .wrangler-assets && mkdir -p .wrangler-assets && cp -R dist/. .wrangler-assets/ && rm -rf .wrangler-assets/_worker.js",
+    "deploy:worker": "pnpm run deploy:prepare-assets && wrangler deploy dist/_worker.js --assets .wrangler-assets && rm -rf .wrangler-assets",
+    "deploy": "astro build && pnpm run deploy:worker",
     "wrangler": "wrangler",
     "cf:types": "wrangler types --include-runtime false"
   },
