@@ -14,9 +14,32 @@ const post = await getEntry('posts', slug);
 if (!post) throw new Error('No post found for this slug');
 
 const { Content } = await render(post);
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString('en-US', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+}
 ---
 
-<Layout title={post.data.title}>
-  <h1>{post.data.title}</h1>
-  <Content />
+<Layout title={post.data.title} description={post.data.description}>
+  <div class="page">
+    <p class="post-date">{formatDate(post.data.date)}</p>
+    <h1 class="post-title">{post.data.title}</h1>
+
+    <div class="post-body">
+      <Content />
+    </div>
+
+    {post.data.tags && post.data.tags.length > 0 && (
+      <div class="post-tags">
+        {post.data.tags.map((tag: string) => (
+          <a href={`/tag/${tag}`} class="post-tag">{tag}</a>
+        ))}
+      </div>
+    )}
+  </div>
 </Layout>

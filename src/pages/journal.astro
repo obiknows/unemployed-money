@@ -5,9 +5,6 @@ import Layout from '../layouts/Layout.astro';
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 const posts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
-const FEATURED_SLUGS = ['the-post-game-papers', 'unemployed-money-4eva', 'affirmations'];
-const featured = FEATURED_SLUGS.map(slug => posts.find(p => p.id === slug)).filter(Boolean);
-
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('en-US', {
     month: 'short',
@@ -18,23 +15,14 @@ function formatDate(dateStr: string) {
 }
 ---
 
-<Layout title="Stackin Szn" description="One man's journey to get some unemployed money so he can spend more time with his family.">
+<Layout title="Journal" description="A series of ideas & thoughts on trading and the markets.">
   <div class="page">
-    <div class="hero">
-      <p class="hero-tagline">Stackin Szn</p>
-      <h1 class="hero-headline">One man's journey to get some unemployed money so he can spend more time with his family.</h1>
+    <div class="page-header">
+      <h1>✍🏿 Journal</h1>
+      <p class="subtitle">SELLF REFLECTIONZ</p>
+      <p class="sub-subtitle">a series of ideas & thoughts on trading and the markets, updated daily*</p>
     </div>
 
-    <p class="section-label">Featured</p>
-    <div class="featured-grid">
-      {featured.map(post => (
-        <a href={`/posts/${post!.id}`} class="featured-card">
-          <p class="featured-card-title">{post!.data.title}</p>
-        </a>
-      ))}
-    </div>
-
-    <p class="section-label">Journal Entries</p>
     <ul class="journal-list">
       {posts.map(post => (
         <li>
