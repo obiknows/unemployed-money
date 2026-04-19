@@ -21,25 +21,23 @@ function formatDate(dateStr: string) {
     month: 'short',
     year: 'numeric',
     timeZone: 'UTC',
-  });
+  }).toUpperCase();
 }
 ---
 
 <Layout title={post.data.title} description={post.data.description}>
-  <div class="page">
-    <p class="post-date">{formatDate(post.data.date)}</p>
-    <h1 class="post-title">{post.data.title}</h1>
-
-    <div class="post-body">
-      <Content />
-    </div>
-
-    {post.data.tags && post.data.tags.length > 0 && (
-      <div class="post-tags">
-        {post.data.tags.map((tag: string) => (
-          <a href={`/tag/${tag}`} class="post-tag">{tag}</a>
-        ))}
-      </div>
-    )}
-  </div>
+  <small class="text-sm font-bold tracking-tight uppercase">{formatDate(post.data.date)}</small>
+  <article class="my-6 prose prose-green lg:prose-xl dark:prose-invert">
+    <h1>{post.data.title}</h1>
+    <Content />
+  </article>
+  {post.data.tags && post.data.tags.length > 0 && (
+    <ul class="flex flex-row gap-4 mb-4 list-none p-0">
+      {post.data.tags.map((tag: string) => (
+        <li class="px-2 py-1 rounded-full bg-slate-100">
+          <a href={`/tag/${tag}`}>{tag}</a>
+        </li>
+      ))}
+    </ul>
+  )}
 </Layout>

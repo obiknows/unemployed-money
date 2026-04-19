@@ -5,45 +5,55 @@ import Layout from '../layouts/Layout.astro';
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 const posts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
-const FEATURED_SLUGS = ['the-post-game-papers', 'unemployed-money-4eva', 'affirmations'];
-const featured = FEATURED_SLUGS.map(slug => posts.find(p => p.id === slug)).filter(Boolean);
+const featuredPosts = posts.filter(p => p.data.featured);
+const journalPosts = posts.filter(p => !p.data.featured);
 
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('en-US', {
-    month: 'short',
     day: '2-digit',
+    month: 'short',
     year: 'numeric',
     timeZone: 'UTC',
-  });
+  }).toUpperCase();
 }
 ---
 
 <Layout title="Stackin Szn" description="One man's journey to get some unemployed money so he can spend more time with his family.">
-  <div class="page">
-    <div class="hero">
-      <p class="hero-tagline">Stackin Szn</p>
-      <h1 class="hero-headline">One man's journey to get some unemployed money so he can spend more time with his family.</h1>
-    </div>
+  <!-- Hero -->
+  <div class="my-10 dark:text-white">
+    <span class="px-3 py-1 font-mono text-xs font-semibold leading-none tracking-wide text-black uppercase rounded-full bg-amber-500">
+      Stackin Szn
+    </span>
+    <h1 class="mt-4 text-3xl leading-normal text-black transition-all ease-in-out dark:text-white md:text-5xl md:leading-snug">
+      One man's journey to get some unemployed money so he can spend more time with his family.
+    </h1>
+  </div>
 
-    <p class="section-label">Featured</p>
-    <div class="featured-grid">
-      {featured.map(post => (
-        <a href={`/posts/${post!.id}`} class="featured-card">
-          <p class="featured-card-title">{post!.data.title}</p>
+  <!-- Featured Posts -->
+  <h2 class="pb-6 my-6 text-3xl text-slate-600">Featured Posts</h2>
+  <div class="grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-8">
+    {featuredPosts.map(post => (
+      <a href={`/posts/${post.id}`} class="flex flex-col w-full h-full overflow-hidden text-black group no-underline hover:no-underline">
+        <div class="h-[200px] w-full rounded-md bg-amber-100" />
+        <div class="flex flex-col w-full py-4 capitalize dark:text-white group-hover:text-red-800 h-max">
+          <span class="h-5 mb-2 text-xl font-bold">{post.data.title}</span>
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <!-- Journal Entries -->
+  <h2 class="my-6 text-3xl text-slate-600">Journal Entries</h2>
+  <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
+    {journalPosts.map(post => (
+      <div class="flex flex-col items-center justify-center px-4 py-4 my-2 border-b rounded dark:bg-stone-600 hover:bg-amber-200 bg-amber-100 md:my-0 border-slate-200">
+        <a href={`/posts/${post.id}`} class="no-underline hover:no-underline w-full text-center">
+          <h2 class="my-2 text-center hover:underline hover:text-red-800">{post.data.title}</h2>
         </a>
-      ))}
-    </div>
-
-    <p class="section-label">Journal Entries</p>
-    <ul class="journal-list">
-      {posts.map(post => (
-        <li>
-          <a href={`/posts/${post.id}`} class="journal-item">
-            <span class="journal-item-date">{formatDate(post.data.date)}</span>
-            <span class="journal-item-title">{post.data.title}</span>
-          </a>
-        </li>
-      ))}
-    </ul>
+        <div class="items-center leading-relaxed uppercase">
+          <time>{formatDate(post.data.date)}</time>
+        </div>
+      </div>
+    ))}
   </div>
 </Layout>

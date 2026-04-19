@@ -6,35 +6,52 @@ export interface Props {
   description?: string;
 }
 
-const { title, description = 'One man\'s journey to get some unemployed money.' } = Astro.props;
+const { title, description = "One man's journey to get some unemployed money so he can spend more time with his family." } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark:bg-stone-900 dark:text-white">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:wght@400;500;900&family=Space+Mono&display=swap" rel="stylesheet" />
     <meta name="generator" content={Astro.generator} />
     <title>{title} — Unemployed Money</title>
   </head>
   <body>
-    <nav class="nav">
-      <a href="/" class="nav-logo">
-        <img src="/logo.svg" alt="Unemployed Money" />
-      </a>
-      <ul class="nav-links">
-        <li><a href="/about">About</a></li>
-        <li><a href="/topics">Topics</a></li>
-        <li><a href="/journal">Journal</a></li>
-      </ul>
-    </nav>
+    <header>
+      <div class="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
+        <nav class="flex flex-col justify-between py-6 md:flex-row md:py-10">
+          <div class="flex flex-row items-center space-x-2">
+            <a href="/" class="flex flex-row items-center mb-2 font-sans text-red-800 uppercase no-underline hover:no-underline">
+              <img class="w-10 h-10 mr-2" src="/logo.svg" alt="" />
+              Unemployed.
+            </a>
+          </div>
+          <ul class="grid items-center grid-flow-col gap-6 list-none p-0 m-0 auto-cols-max">
+            <li><a href="/about" class="dark:text-white">About</a></li>
+            <li><a href="/topics" class="dark:text-white">Topics</a></li>
+            <li><a href="/journal" class="dark:text-white">Journal</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
 
-    <slot />
+    <main class="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
+      <slot />
+    </main>
 
-    <footer class="footer">
-      © 2022 Unemployed Money™️ &nbsp; 🎲
+    <footer class="w-full mt-10">
+      <div class="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
+        <div class="flex flex-col items-center gap-4 py-6 border-t border-slate-200">
+          <p>© 2022 Unemployed Money™️</p>
+          <div>🎲</div>
+        </div>
+      </div>
     </footer>
   </body>
 </html>
