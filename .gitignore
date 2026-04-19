@@ -17,3 +17,6 @@ dist/
 # Editor
 .vscode/
 .idea/
+
+# Local reference / ripped legacy site (not part of Astro app)
+inspo/
