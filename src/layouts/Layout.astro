@@ -53,14 +53,14 @@ const year = new Date().getFullYear();
               Unemployed.
             </a>
           </div>
-          <div class="flex flex-row flex-wrap items-center gap-4 md:gap-6">
-            <ul class="grid items-center grid-flow-col gap-6 list-none p-0 m-0 auto-cols-max text-sm font-medium">
-              <li><a href="/about">About</a></li>
-              <li><a href="/topics">Topics</a></li>
-              <li><a href="/journal">Journal</a></li>
-            </ul>
-            <ThemeToggle client:load />
-          </div>
+          <ul class="grid auto-cols-max grid-flow-col items-center gap-6 p-0 m-0 list-none text-sm font-medium">
+            <li><a class="dark:text-white" href="/about">About</a></li>
+            <li><a class="dark:text-white" href="/topics">Topics</a></li>
+            <li><a class="dark:text-white" href="/journal">Journal</a></li>
+            <li class="flex items-center">
+              <ThemeToggle client:load />
+            </li>
+          </ul>
         </nav>
       </div>
     </header>
