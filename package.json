@@ -8,9 +8,9 @@
     "directory": "templates/astro"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^13.1.10",
     "@astrojs/mdx": "^5.0.3",
     "@astrojs/react": "^5.0.3",
-    "@astrojs/vercel": "^10.0.4",
     "@keystatic/astro": "^5.0.6",
     "@keystatic/core": "^0.5.50",
     "@types/react": "^19.0.8",
@@ -24,11 +24,26 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "deploy": "astro build && wrangler deploy",
+    "wrangler": "wrangler",
+    "cf:types": "wrangler types --include-runtime false"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.2.2",
+    "@types/node": "^25.6.0",
+    "wrangler": "^4.83.0",
     "tailwindcss": "^4.2.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "vite": "^7.3.2"
+    },
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp",
+      "workerd"
+    ]
   }
 }

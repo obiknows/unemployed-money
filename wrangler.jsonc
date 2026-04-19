@@ -10,4 +10,9 @@
   "observability": {
     "enabled": true,
   },
+  "vars": {
+    "KEYSTATIC_GITHUB_CLIENT_ID": "Iv23ligbj4xt5JHtYm6I",
+    "PUBLIC_KEYSTATIC_GITHUB_APP_SLUG": "unemployed-money-keystatic",
+    "SITE": "https://unemployed-money.itsobinna.workers.dev"
+  }
 }
