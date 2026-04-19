@@ -44,12 +44,17 @@ export default config({
             "Tickers, strategies, macro events. e.g. SPY, 0DTE, FOMC",
           itemLabel: (props) => props.value,
         }),
+        featured: fields.checkbox({
+          label: "Featured",
+          description: "Pin to the homepage featured section",
+          defaultValue: false,
+        }),
         draft: fields.checkbox({
           label: "Draft",
           description: "Check to hide from the site",
           defaultValue: false,
         }),
-        content: fields.markdoc({
+        content: fields.mdx({
           label: "Content",
           options: {
             image: {
