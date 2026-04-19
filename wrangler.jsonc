@@ -3,6 +3,12 @@
   "main": "@astrojs/cloudflare/entrypoints/server",
   "compatibility_date": "2026-04-19",
   "compatibility_flags": ["nodejs_compat"],
+  "routes": [
+    {
+      "pattern": "unemployed.money",
+      "custom_domain": true
+    }
+  ],
   "assets": {
     "directory": "./dist",
     "not_found_handling": "404-page",
@@ -13,6 +19,6 @@
   "vars": {
     "KEYSTATIC_GITHUB_CLIENT_ID": "Iv23ligbj4xt5JHtYm6I",
     "PUBLIC_KEYSTATIC_GITHUB_APP_SLUG": "unemployed-money-keystatic",
-    "SITE": "https://unemployed-money.itsobinna.workers.dev"
+    "SITE": "https://unemployed.money"
   }
 }
