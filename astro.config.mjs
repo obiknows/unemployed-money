@@ -1,11 +1,15 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
-import markdoc from '@astrojs/markdoc';
+import mdx from '@astrojs/mdx';
 import keystatic from '@keystatic/astro';
 import vercel from '@astrojs/vercel';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   output: 'static',
   adapter: vercel(),
-  integrations: [react(), markdoc(), keystatic()],
+  integrations: [react(), mdx(), keystatic()],
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });
