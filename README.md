@@ -1,19 +1,24 @@
 # Keystatic in Astro
 
-This template shows how you can use Keystatic in an Astro site.
-
-To setup:
+## Setup
 
 ```bash
-npm install
-```
-
-To run:
-
-```
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 Admin UI: [http://127.0.0.1:4321/keystatic](http://127.0.0.1:4321/keystatic)
 
-Homepage: [http://localhost:4321](http://localhost:4321)
+## GitHub Mode
+
+`keystatic.config.ts` is hardcoded to GitHub mode:
+
+- `storage.kind: "github"`
+- `storage.repo: "obiknows/unemployed-money"`
+
+### Local steps
+
+1. Copy `.env.example` to `.env`.
+2. Run `pnpm dev` and open `/keystatic`.
+3. Use the in-app flow to create/connect the GitHub App.
+4. Add generated `KEYSTATIC_*` values to `.env` and restart `pnpm dev`.
