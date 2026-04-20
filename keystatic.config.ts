@@ -1,27 +1,65 @@
 import { config, fields, collection } from "@keystatic/core";
+import { createElement } from "react";
 
 export default config({
   storage: {
     kind: "github",
     repo: "obiknows/unemployed-money",
   },
+  ui: {
+    brand: {
+      name: "Unemployed Money",
+      mark: () =>
+        // Direct escape hatch from /keystatic back to the public site.
+        createElement(
+          "a",
+          {
+            href: "/",
+            style: {
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.4rem",
+              fontSize: "0.75rem",
+              textTransform: "uppercase",
+              letterSpacing: "0.06em",
+              textDecoration: "none",
+              fontWeight: 700,
+            },
+          },
+          "Back to site",
+        ),
+    },
+  },
   collections: {
     posts: collection({
       label: "Trade Journal",
-      slugField: "slug",
+      slugField: "title",
       path: "src/content/posts/*",
+      previewUrl: "/posts/{slug}?preview=1",
       format: { contentField: "content" },
       schema: {
-        title: fields.text({
-          label: "Title",
-          description: "Your voice. Emojis welcome.",
-        }),
-        slug: fields.text({
-          label: "Slug",
-          description: "SEO-friendly URL. e.g. spy-puts-fomc-july-2022",
+        title: fields.slug({
+          name: {
+            label: "Title",
+            description: "Your voice. Emojis welcome.",
+          },
+          slug: {
+            label: "Slug",
+            description: "SEO-friendly URL. Click Regenerate after title edits.",
+            generate: (name) =>
+              name
+                .toLowerCase()
+                .trim()
+                .replace(/['’]/g, "")
+                .replace(/[^a-z0-9]+/g, "-")
+                .replace(/^-+|-+$/g, ""),
+          },
         }),
         date: fields.date({
           label: "Date",
+          description: "Use YYYY-MM-DD. Defaults to today.",
+          defaultValue: { kind: "today" },
+          validation: { isRequired: true },
         }),
         description: fields.text({
           label: "Meta Description",
