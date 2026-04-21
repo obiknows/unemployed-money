@@ -1,10 +1,12 @@
 import { config, fields, collection } from "@keystatic/core";
 import { createElement } from "react";
 
-const keystaticStorageKind = process.env.KEYSTATIC_STORAGE_KIND;
+const runtimeEnv =
+  typeof process !== "undefined" && process.env ? process.env : {};
+const keystaticStorageKind = runtimeEnv.KEYSTATIC_STORAGE_KIND;
 const useLocalKeystaticStorage =
   keystaticStorageKind === "local" ||
-  (keystaticStorageKind !== "github" && process.env.NODE_ENV !== "production");
+  (keystaticStorageKind !== "github" && runtimeEnv.NODE_ENV !== "production");
 
 export default config({
   storage: useLocalKeystaticStorage

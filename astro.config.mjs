@@ -34,13 +34,7 @@ export default defineConfig({
     resolve: {
       dedupe: ['react', 'react-dom'],
     },
-    optimizeDeps: {
-      exclude: ['@keystatic/astro', '@keystatic/core'],
-    },
     ssr: {
-      optimizeDeps: {
-        exclude: ['@keystatic/astro', '@keystatic/core'],
-      },
       noExternal: ['@keystatic/astro', '@keystatic/core'],
     },
   },
