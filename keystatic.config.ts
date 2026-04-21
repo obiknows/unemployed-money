@@ -217,8 +217,8 @@ export default config({
           },
           options: {
             image: {
-              directory: "src/assets/images/posts",
-              publicPath: "../../assets/images/posts/",
+              directory: "public/images/posts",
+              publicPath: "/images/posts/",
             },
           },
         }),
