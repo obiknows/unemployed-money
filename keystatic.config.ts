@@ -1,11 +1,20 @@
 import { config, fields, collection } from "@keystatic/core";
 import { createElement } from "react";
 
+const keystaticStorageKind = process.env.KEYSTATIC_STORAGE_KIND;
+const useLocalKeystaticStorage =
+  keystaticStorageKind === "local" ||
+  (keystaticStorageKind !== "github" && process.env.NODE_ENV !== "production");
+
 export default config({
-  storage: {
-    kind: "github",
-    repo: "obiknows/unemployed-money",
-  },
+  storage: useLocalKeystaticStorage
+    ? {
+        kind: "local",
+      }
+    : {
+        kind: "github",
+        repo: "obiknows/unemployed-money",
+      },
   ui: {
     brand: {
       name: "Unemployed Money",
@@ -36,6 +45,7 @@ export default config({
       slugField: "title",
       path: "src/content/posts/*",
       previewUrl: "/posts/{slug}?preview=1",
+      columns: ["title", "date", "updatedAt", "type", "draft", "featured"],
       format: { contentField: "content" },
       schema: {
         title: fields.slug({
@@ -60,6 +70,10 @@ export default config({
           description: "Use YYYY-MM-DD. Defaults to today.",
           defaultValue: { kind: "today" },
           validation: { isRequired: true },
+        }),
+        updatedAt: fields.datetime({
+          label: "Updated",
+          description: "Optional last-updated timestamp for sorting/filtering.",
         }),
         description: fields.text({
           label: "Meta Description",
