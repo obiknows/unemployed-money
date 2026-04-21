@@ -1,12 +1,86 @@
 import { config, fields, collection } from "@keystatic/core";
+import { block } from "@keystatic/core/content-components";
 import { createElement } from "react";
+import { toGiphyEmbedUrl } from "./src/lib/giphy";
 
-const runtimeEnv =
-  typeof process !== "undefined" && process.env ? process.env : {};
-const keystaticStorageKind = runtimeEnv.KEYSTATIC_STORAGE_KIND;
+type EnvRecord = Record<string, unknown>;
+
+const importMetaEnv: EnvRecord =
+  typeof import.meta !== "undefined" && import.meta.env
+    ? (import.meta.env as unknown as EnvRecord)
+    : {};
+const processEnv: EnvRecord =
+  typeof globalThis !== "undefined" &&
+  "process" in globalThis &&
+  (globalThis as { process?: { env?: EnvRecord } }).process?.env
+    ? ((globalThis as { process?: { env?: EnvRecord } }).process?.env ??
+      {})
+    : {};
+
+const readEnv = (key: string): string | undefined => {
+  const processValue = processEnv[key];
+  if (typeof processValue === "string" && processValue.length > 0) {
+    return processValue;
+  }
+  const importMetaValue = importMetaEnv[key];
+  if (typeof importMetaValue === "string" && importMetaValue.length > 0) {
+    return importMetaValue;
+  }
+  return undefined;
+};
+
+const isProduction =
+  typeof importMetaEnv.PROD === "boolean"
+    ? importMetaEnv.PROD
+    : readEnv("NODE_ENV") === "production";
+const keystaticStorageKind = readEnv("KEYSTATIC_STORAGE_KIND");
+const siteEnv = readEnv("SITE");
+const localPreviewBaseEnv = readEnv("KEYSTATIC_LOCAL_PREVIEW_BASE_URL");
 const useLocalKeystaticStorage =
   keystaticStorageKind === "local" ||
-  (keystaticStorageKind !== "github" && runtimeEnv.NODE_ENV !== "production");
+  (keystaticStorageKind !== "github" && !isProduction);
+const normalizedSite =
+  typeof siteEnv === "string" && siteEnv.length > 0
+    ? siteEnv.replace(/\/$/, "")
+    : "https://unemployed.money";
+const localPreviewBase =
+  typeof localPreviewBaseEnv === "string" && localPreviewBaseEnv.length > 0
+    ? localPreviewBaseEnv.replace(/\/$/, "")
+    : "";
+const postsPreviewUrl = useLocalKeystaticStorage
+  ? `${localPreviewBase}/posts/{slug}?preview=1`
+  : `${normalizedSite}/posts/{slug}?preview=1`;
+const giphyComponent = block({
+  label: "Giphy Embed",
+  description: "Paste a Giphy URL to embed it in the post body.",
+  schema: {
+    url: fields.url({
+      label: "Giphy URL",
+      description: "Accepts giphy.com/gifs, giphy.com/embed, or media.giphy.com",
+      validation: { isRequired: true },
+    }),
+    caption: fields.text({
+      label: "Caption",
+      description: "Optional caption below the embed.",
+    }),
+  },
+  ContentView: (props) => {
+    const embedUrl = toGiphyEmbedUrl(props.value.url ?? "");
+    return createElement(
+      "div",
+      {
+        style: {
+          border: "1px solid rgba(255,255,255,0.12)",
+          borderRadius: "0.5rem",
+          padding: "0.65rem",
+          fontSize: "0.82rem",
+          lineHeight: 1.4,
+        },
+      },
+      embedUrl ? `Giphy embed ready: ${embedUrl}` : "Paste a valid Giphy URL",
+    );
+  },
+});
 
 export default config({
   storage: useLocalKeystaticStorage
@@ -29,8 +103,8 @@ export default config({
             "aria-label": "Back to site",
             style: {
               position: "fixed",
-              top: "0.9rem",
-              right: "1rem",
+              bottom: "1rem",
+              left: "1rem",
               zIndex: 2147483647,
               display: "inline-flex",
               alignItems: "center",
@@ -68,7 +142,7 @@ export default config({
       label: "Trade Journal",
       slugField: "title",
       path: "src/content/posts/*",
-      previewUrl: "/posts/{slug}?preview=1",
+      previewUrl: postsPreviewUrl,
       columns: ["date", "updatedAt", "type", "draft", "featured"],
       format: { contentField: "content" },
       schema: {
@@ -138,6 +212,9 @@ export default config({
         }),
         content: fields.mdx({
           label: "Content",
+          components: {
+            Giphy: giphyComponent,
+          },
           options: {
             image: {
               directory: "src/assets/images/posts",

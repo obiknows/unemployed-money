@@ -1,0 +1,34 @@
+---
+import { toGiphyEmbedUrl, toGiphyGifUrl } from "../../lib/giphy";
+
+interface Props {
+  url: string;
+  caption?: string;
+}
+
+const { url, caption } = Astro.props as Props;
+const embedUrl = toGiphyEmbedUrl(url);
+const gifUrl = toGiphyGifUrl(url);
+---
+
+{
+  embedUrl && gifUrl ? (
+    <figure class="my-6">
+      <img
+        src={gifUrl}
+        alt={caption || "Giphy animation"}
+        loading="lazy"
+        class="w-full rounded-lg"
+      />
+      {caption ? (
+        <figcaption class="mt-2 text-sm text-slate-500 dark:text-slate-400">
+          {caption}
+        </figcaption>
+      ) : null}
+    </figure>
+  ) : (
+    <p class="my-6 text-sm text-slate-500 dark:text-slate-400">
+      Invalid Giphy URL: {url}
+    </p>
+  )
+}
