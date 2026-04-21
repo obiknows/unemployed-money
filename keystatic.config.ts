@@ -26,17 +26,39 @@ export default config({
           "a",
           {
             href: "/",
+            "aria-label": "Back to site",
             style: {
+              position: "fixed",
+              top: "0.9rem",
+              right: "1rem",
+              zIndex: 2147483647,
               display: "inline-flex",
               alignItems: "center",
-              gap: "0.4rem",
-              fontSize: "0.75rem",
-              textTransform: "uppercase",
-              letterSpacing: "0.06em",
+              gap: "0.35rem",
+              padding: "0.35rem 0.6rem",
+              borderRadius: "0.5rem",
+              border: "1px solid rgba(255, 255, 255, 0.12)",
+              background: "rgba(20, 20, 24, 0.78)",
+              color: "inherit",
+              fontFamily:
+                '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+              fontSize: "0.8rem",
+              fontWeight: 600,
               textDecoration: "none",
-              fontWeight: 700,
+              lineHeight: 1,
             },
           },
+          createElement(
+            "span",
+            {
+              "aria-hidden": "true",
+              style: {
+                fontSize: "0.95rem",
+                opacity: 0.85,
+              },
+            },
+            "‹",
+          ),
           "Back to site",
         ),
     },
@@ -47,7 +69,7 @@ export default config({
       slugField: "title",
       path: "src/content/posts/*",
       previewUrl: "/posts/{slug}?preview=1",
-      columns: ["title", "date", "updatedAt", "type", "draft", "featured"],
+      columns: ["date", "updatedAt", "type", "draft", "featured"],
       format: { contentField: "content" },
       schema: {
         title: fields.slug({
