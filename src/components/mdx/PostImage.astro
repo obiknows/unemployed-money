@@ -1,0 +1,51 @@
+---
+interface Props {
+  src?: string;
+  alt?: string;
+  title?: string;
+  caption?: string;
+  class?: string;
+  loading?: "eager" | "lazy";
+  decoding?: "sync" | "async" | "auto";
+}
+
+const {
+  src,
+  alt,
+  title,
+  caption,
+  class: className,
+  loading = "lazy",
+  decoding = "async",
+  ...rest
+} = Astro.props as Props & Record<string, unknown>;
+
+const captionText = [caption, title, alt].find(
+  (value): value is string =>
+    typeof value === "string" && value.trim().length > 0,
+);
+const resolvedAlt =
+  typeof alt === "string" && alt.trim().length > 0
+    ? alt
+    : captionText ?? "Post image";
+---
+
+{
+  src ? (
+    <>
+      <img
+        src={src}
+        alt={resolvedAlt}
+        loading={loading}
+        decoding={decoding}
+        class:list={["w-full rounded-lg", className]}
+        {...rest}
+      />
+      {captionText ? (
+        <span class="mt-2 block text-sm text-slate-500 dark:text-slate-400">
+          {captionText}
+        </span>
+      ) : null}
+    </>
+  ) : null
+}

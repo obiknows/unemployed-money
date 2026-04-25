@@ -2,6 +2,7 @@
 import { getEntry, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Giphy from '../../components/mdx/Giphy.astro';
+import PostImage from '../../components/mdx/PostImage.astro';
 
 export const prerender = false;
 
@@ -32,7 +33,7 @@ function formatDate(dateStr: string) {
   <small class="font-sans text-sm font-bold uppercase tracking-tight text-slate-500 dark:text-slate-400">{formatDate(post.data.date)}</small>
   <article class="prose prose-green prose-headings:font-serif my-6 lg:prose-xl dark:prose-invert">
     <h1>{post.data.title}</h1>
-    <Content components={{ Giphy }} />
+    <Content components={{ Giphy, img: PostImage, Image: PostImage }} />
   </article>
   {post.data.tags && post.data.tags.length > 0 && (
     <ul class="mb-4 flex list-none flex-row flex-wrap gap-2 p-0 font-sans">
