@@ -1,0 +1,366 @@
+---
+title: what 349 trades taught me about myself (the hard way) 📊
+date: 2026-04-25
+description: >-
+  I fed a full year of trade data into Claude and Tradezella and asked for the
+  truth. 349 trades, $28K max drawdown, and one 5-minute window that's been
+  silently destroying my P&L all year. Here's everything the data said.
+type: analysis
+tags:
+  - analysis
+featured: true
+coverPhoto: >-
+  https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWJwMHh5aGl2Mjk0bTdtdGRjMjNjbHJkbG1mOTZlaTJyOTQyZmw4aSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/fUQ4rhUZJYiQsas6WD/giphy.gif
+draft: false
+---
+*this isn't a journal entry. this is a reckoning.*
+
+after the worst trading week of my year — -$2,595 in 5 days, 25.6% win rate, second worst week since February — i did something i should've done months ago.
+
+i sat down. exported everything. fed it all into Claude and Tradezella. and asked for the truth.
+
+no sugarcoating. no vibes. just data.
+
+what came back was uncomfortable. illuminating. and honestly? exactly what i needed.
+
+this is that report.
+
+---
+
+## the headline numbers
+
+![](/images/posts/what-349-trades-taught-me-about-myself-the-hard-way/Screenshot%202026-04-27%20at%2011.37.50%E2%80%AFPM.png)
+
+**YTD Net P\&L: +$494** **Win Rate: 38.4%** **Max Drawdown: -$28,160** **All-Time Peak: +$13,506**
+
+on the surface, +$494 sounds fine. barely positive but hey, green is green.
+
+until you look at the equity curve.
+
+peaked at $13,506 in late January. crashed to -$28,160 at the worst point. and crawled back to almost exactly zero.
+
+that's not a trading account. that's a roller coaster that starts and ends in the same place and scares the shit out of you the whole ride.
+
+something is deeply wrong with the process. the data told me exactly what.
+
+---
+
+## the monthly breakdown
+
+| Month    | Trades | WR    | Profit Factor | Net     |
+| -------- | ------ | ----- | ------------- | ------- |
+| Jan 2026 | 57     | 35.1% | 3.36          | +$9,244 |
+| Feb 2026 | 65     | 35.4% | 0.75          | -$9,568 |
+| Mar 2026 | 91     | 46.2% | 1.04          | +$1,977 |
+| Apr 2026 | 136    | 34.6% | 0.97          | -$1,158 |
+
+january was the blueprint.
+
+35% win rate but a 3.36 profit factor — meaning my winners were 3x bigger than my losers. avg winner $668, avg loser $111. that's the 6:1 ratio you actually want.
+
+february was the exact same win rate (35.4%) but a 0.75 profit factor. meaning my losers got bigger and my winners got smaller.
+
+same trader. same win rate. completely different money management.
+
+*that's not a market problem. that's a me problem.*
+
+and april? 136 trades in 27 days.
+
+that's almost 5 trades a day every single day. and i'm down on the month.
+
+the data is telling me something clear: **i'm not taking fewer trades when things go wrong. i'm taking more.**
+
+---
+
+## the single most important finding
+
+![](/images/posts/what-349-trades-taught-me-about-myself-the-hard-way/Screenshot%202026-04-27%20at%2011.38.16%E2%80%AFPM.png)
+
+this one stopped me cold.
+
+**Entry Time Window — YTD Net P\&L:**
+
+| Window      | Net      | WR    |
+| ----------- | -------- | ----- |
+| 9:30-9:44   | -$19,272 | 41.7% |
+| 9:45-9:59   | +$3,654  | 45%   |
+| 10:00-10:29 | +$1,069  | 43.8% |
+| 11:00-11:59 | +$8,935  | 28.6% |
+| 12:00-12:59 | +$4,626  | 22.2% |
+
+the first 15 minutes of the session have cost me **$19,272 this year.**
+
+every single other time window is profitable.
+
+let me say that again slower.
+
+**9:30 to 9:44 is the only time window losing money. every window after that is green.**
+
+and it gets worse when you zoom in:
+
+![](/images/posts/what-349-trades-taught-me-about-myself-the-hard-way/Screenshot%202026-04-27%20at%2011.38.30%E2%80%AFPM.png)
+
+**9:30-9:34 alone: -$18,198 YTD. 24 trades.**
+
+one five-minute window. responsible for more losses than my entire year's gain — **36 times over.**
+
+if i had simply waited 10 minutes before entering a single trade this year?
+
+**+$20,313 YTD instead of +$494.**
+
+the 30-minute ORB rule i wrote about in this very blog. the rule i identified. documented. and keep violating every single morning.
+
+the data ran the simulation. the answer isn't even 30 minutes.
+
+**don't trade the first 10 minutes. after 9:40 you're fine.**
+
+waiting 15 min → +$19,766. waiting 10 min → +$20,313. ← optimal. waiting 30 min → +$16,112. (you actually leave edge on the table by waiting too long because 9:45-9:59 is one of your best windows.)
+
+the rule writes itself.
+
+---
+
+## DTE — the further from expiry, the better
+
+![](/images/posts/what-349-trades-taught-me-about-myself-the-hard-way/Screenshot%202026-04-27%20at%2011.53.38%E2%80%AFPM.png)
+
+**DTE at Entry — YTD Net P\&L:**
+
+| DTE     | Trades | Net      | WR    |
+| ------- | ------ | -------- | ----- |
+| 0DTE    | 89     | +$2,185  | 40.4% |
+| 1-2 DTE | 111    | -$3,453  | 29.7% |
+| 3-7 DTE | 66     | +$3,571  | 42.4% |
+| 7+ DTE  | 28     | +$10,322 | 53.6% |
+
+the further from expiry, the better i do. every time.
+
+7+ DTE: 53.6% win rate, +$10,322. 1-2 DTE: 29.7% win rate, -$3,453.
+
+this past week? almost entirely 1-2 DTE options.
+
+my weakest bucket. by a lot.
+
+0DTEs are interesting because they're actually slightly positive on the year — but only because of a handful of big winners. the variance is brutal and the losing weeks in 0DTE are what's driving the drawdown.
+
+the data says: **move to 3-7 DTE as the primary vehicle. save 0DTEs for specific, high-conviction setups with clear levels.**
+
+---
+
+## the symbols — who's actually making money
+
+![](/images/posts/what-349-trades-taught-me-about-myself-the-hard-way/Screenshot%202026-04-27%20at%2011.54.34%E2%80%AFPM.png)
+
+**Best performers:**
+
+* MGCG26: +$8,027 (1 trade)
+* META: +$5,032 (95 trades)
+* SLV: +$1,724 (1 trade)
+
+**Worst performers:**
+
+* NFLX: -$7,684 (5 trades)
+* MGCM26: -$5,771 (9 trades)
+* NVDA: -$983 (18 trades, 16.7% WR)
+
+META is the edge.
+
+95 trades. 40% win rate. +$5,032 net.
+
+that's my most traded name and my best performer. there's something about how i read META — the structure, the levels, the way it moves — that works.
+
+NVDA is the inverse.
+
+18 trades. 16.7% win rate. -$983.
+
+i've been in NVDA constantly this week. puts when it was ripping. calls that i cut too early. chasing it in both directions.
+
+18 trades in a name where i win less than 1 in 6 times.
+
+the data is clear: **META is the edge. NVDA is the ego.**
+
+stop trading NVDA until i can explain specifically why the setup is different from the last 18 times it went wrong.
+
+---
+
+## size kills
+
+this one is simple.
+
+**6+ contracts: -$9,700 YTD.** **1-2 contracts: +$8,000 YTD.**
+
+that's $17,700 of difference based purely on position size.
+
+not the tickers. not the strategy. not the market conditions.
+
+**how many contracts i put on.**
+
+every time i've sized up — chasing a recovery, following a big admin signal, feeling confident after a win — it's cost me. consistently. all year.
+
+small stays alive.
+
+---
+
+## mondays
+
+![](/images/posts/what-349-trades-taught-me-about-myself-the-hard-way/Screenshot%202026-04-27%20at%2011.55.50%E2%80%AFPM.png)
+
+-$15,789 YTD on Mondays alone. 28.8% win rate. 66 trades.
+
+i wrote "fact finding Mondays are real. Monday is not the day to be a hero" in this blog on April 21st.
+
+then went back and looked at the data.
+
+i've been saying that. i've been writing it down.
+
+and then taking 66 trades on Mondays throughout the year anyway.
+
+Monday April 20 — my first day back on the blog — i took 5 trades including a 10-contract NVDA 0DTE lotto at 9:32am.
+
+9:32am. Monday. 10 contracts.
+
+all three of the things the data says not to do. simultaneously. on day one back.
+
+**that's not bad luck. that's a pattern.**
+
+---
+
+## the SPXW spreads — the bread n butta data
+
+![](/images/posts/what-349-trades-taught-me-about-myself-the-hard-way/Screenshot%202026-04-27%20at%2011.38.23%E2%80%AFPM.png)
+
+been running credit spreads on SPX since the beginning. bread n butta 🍞🧈 strategy.
+
+the data on these is actually more encouraging than the rest.
+
+March was genuinely strong — something like 8W/4L on actual spread P\&L. the 9:45-9:59 entry window is where SPXW trades perform best: 57.1% WR, +$1,778.
+
+which lines up perfectly with the open window data.
+
+the spread strategy works. the entry timing on spreads is the same problem as everything else — entering too early, before the 30m ORB forms, into uncertainty.
+
+**fix the entry timing on spreads and the bread n butta gets real consistent.**
+
+---
+
+## how i did this analysis
+
+worth being transparent about the process because this is part of what unemployed.money is about.
+
+i exported my full trade history from Tradezella — 349 trades, YTD 2026.
+
+then i fed the raw data into Claude and asked it to find patterns i couldn't see myself. entry timing by window. P\&L by DTE. win rates by symbol. size vs outcome. day of week breakdown.
+
+Claude ran the analysis, built the visualizations, and surfaced the findings. i read them. sat with them. cross-referenced them against the journal entries i'd already written this week.
+
+the combination of the qualitative (what i wrote in the blog) and the quantitative (what the data actually shows) painted the full picture.
+
+the voice chat dependency, the chronic "left on the table" problem, the Monday pattern, the open window — none of that shows up in raw numbers alone. you need both.
+
+this is what i mean when i say the blog and the agents aren't just content infrastructure. they're part of how i'm getting better at this.
+
+---
+
+## the 18 rules
+
+these came from two places: the data and my own words. most of them i already wrote somewhere in this blog. the data just confirmed they were right.
+
+**1. wait 10 minutes. no trades before 9:40.** the first 10 minutes have cost $18,198. every other window is green.
+
+**2. hard daily stop: -$500. laptop closes.** simulation shows -$500 stop turns +$494 YTD into +$30,028. i identified this rule on april 21st. it still doesn't mechanically exist. that changes now.
+
+**3. first trade red → seriously consider stopping.** win-start days average +$708. loss-start days average -$440. the first trade sets the whole session.
+
+**4. monday = fact finding. max 3 trades, 1 contract.** -$15,789 YTD, 28.8% WR. size like you know this.
+
+**5. no voice chat while trading.** text signals only. evaluate every call against your own system before entering. if it doesn't fit, skip it.
+
+**6. use your system. every single time.** 30m ORB → mark the range. ICT Power of 3 → wait for manipulation. first FVG → retracement entry. after. not before. not during. after.
+
+**7. trim into profit. always.** when contracts are working early, take some off. greed + theta + headlines = thursday april 23rd.
+
+**8. honor the stop on admin signals.** if the admin who called the trade exits — you exit. holding past someone else's stop is not strategy.
+
+**9. never flip bias without a new thesis.** losing the put doesn't make the call right. no new information = no new trade.
+
+**10. never go further OTM to save premium.** cheaper entry is not better entry when you're fighting the tape.
+
+**11. move to 3-7 DTE as primary vehicle.** 7+ DTE: 53.6% WR, +$10,322. 1-2 DTE: 29.7% WR, -$3,453. the data is not subtle.
+
+**12. 1-2 contracts max until the daily stop rule is mechanical.** 1-2 contracts: +$8K YTD. 6+ contracts: -$9.7K YTD. the size is killing the edge.
+
+**13. META is the edge. protect it.** 95 trades, 40% WR, +$5,032. most traded and best performing. understand why and replicate it.
+
+**14. stop trading NVDA until you can explain the specific edge.** 18 trades, 16.7% WR, -$983. that's not a name — that's a habit.
+
+**15. swing is the alpha. don't erase it.** swing: +$2,911, 51.8% WR. day trading: -$2,417, 35.2% WR. the long book works. the day session is eating it.
+
+**16. add a time stop to every thesis.** if the level doesn't do what it's supposed to by noon — the trade is wrong. get out. don't wait for confirmation that never comes.
+
+**17. first trade loss → log it, reassess, consider stopping.** don't recover. don't revenge. reassess.
+
+**18. january is the blueprint.** PF 3.36, +$9.2K, avg winner $668 vs avg loser $111. that ratio is achievable. i did it once. i can do it again. the market didn't change. the discipline did.
+
+---
+
+## what's actually changing
+
+not vibes. not intentions. mechanical rules.
+
+**before the session:**
+
+* mark the 30m ORB high and low
+* identify the first FVG on the 1H
+* write down the bias and what would invalidate it
+* set a -$500 daily stop in the platform if possible
+
+**during the session:**
+
+* no trades before 9:40
+* 1-2 contracts only
+* no voice chat — text signals evaluated against my system only
+* first trade red → log the reason and seriously consider stopping
+
+**after the session:**
+
+* journal entry same day
+* tag every trade with what rule it followed or violated
+* weekly review with Tradezella + Claude every Sunday
+
+---
+
+## the bottom line
+
+**349 trades. +$494.**
+
+the edge is real. january proved it.
+
+the system is real. i wrote it down.
+
+the data found exactly where the money is going:
+
+* the first 10 minutes of the session
+* oversized positions in the wrong names
+* 1-2 DTE options when the data says go further out
+* monday hero complex
+* following someone else's conviction with my money
+
+none of this is market conditions. none of this is bad luck.
+
+this is all me.
+
+which means all of it is fixable.
+
+that's actually the most important thing this analysis gave me — not the specific rules, not the specific numbers, but the certainty that the problem is in the process, not in some mysterious market force i can't control.
+
+i can control this.
+
+the question is whether i will.
+
+we'll find out. 🎲
+
+---
+
+*analysis conducted using Tradezella trade journal data + Claude AI. all trades from Jan 2026 – Apr 2026.*
+
+*unemployed.money™️*
