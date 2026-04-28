@@ -7,7 +7,27 @@ const posts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date
 
 const featuredPosts = posts.filter((p) => p.data.featured);
 
-const journalPosts = posts.filter(p => !p.data.featured);
+const journalPosts = posts.filter(p => !p.data.featured).slice(0, 30);
+const journalPostsByMonth = journalPosts.reduce((groups, post) => {
+  const date = new Date(post.data.date);
+  const key = `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}`;
+  const existingGroup = groups.get(key);
+
+  if (existingGroup) {
+    existingGroup.posts.push(post);
+    return groups;
+  }
+
+  groups.set(key, {
+    label: date.toLocaleDateString('en-US', {
+      month: 'short',
+      year: '2-digit',
+      timeZone: 'UTC',
+    }).replace(' ', " '").toUpperCase(),
+    posts: [post],
+  });
+  return groups;
+}, new Map<string, { label: string; posts: typeof journalPosts }>());
 
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('en-US', {
@@ -55,16 +75,25 @@ function formatDate(dateStr: string) {
 
   <!-- Journal Entries -->
   <h2 class="my-6 font-sans text-2xl font-semibold text-slate-600 dark:text-slate-400 md:text-3xl">Journal Entries</h2>
-  <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
-    {journalPosts.map(post => (
-      <div class="my-2 flex flex-col items-center justify-center rounded border-b border-slate-200 bg-amber-100 px-4 py-4 hover:bg-amber-200 dark:border-slate-600 dark:bg-stone-600 dark:hover:bg-stone-500 md:my-0">
-        <a href={`/posts/${post.id}`} class="w-full text-center no-underline hover:no-underline">
-          <h2 class="my-2 text-center font-serif text-base font-bold leading-snug text-black hover:underline hover:text-red-800 dark:text-white dark:hover:text-red-300 md:text-lg">{post.data.title}</h2>
-        </a>
-        <div class="font-sans uppercase leading-relaxed text-slate-500 dark:text-slate-300">
-          <time>{formatDate(post.data.date)}</time>
+  <div class="space-y-10">
+    {Array.from(journalPostsByMonth.values()).map((group) => (
+      <section>
+        <h3 class="mb-4 font-mono text-sm font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+          {group.label}
+        </h3>
+        <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
+          {group.posts.map(post => (
+            <div class="my-2 flex flex-col items-center justify-center rounded border-b border-slate-200 bg-stone-500 px-4 py-4 hover:bg-stone-400 dark:border-slate-600 dark:bg-stone-600 dark:hover:bg-stone-500 md:my-0">
+              <a href={`/posts/${post.id}`} class="w-full text-center no-underline hover:no-underline">
+                <h4 class="my-2 text-center font-serif text-base font-bold leading-snug text-white hover:underline hover:text-red-100 dark:text-white dark:hover:text-red-300 md:text-lg">{post.data.title}</h4>
+              </a>
+              <div class="font-sans uppercase leading-relaxed text-slate-200 dark:text-slate-300">
+                <time>{formatDate(post.data.date)}</time>
+              </div>
+            </div>
+          ))}
         </div>
-      </div>
+      </section>
     ))}
   </div>
 </Layout>
