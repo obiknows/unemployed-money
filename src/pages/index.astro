@@ -5,20 +5,7 @@ import Layout from '../layouts/Layout.astro';
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 const posts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
-/** Homepage featured card order (matches original site). */
-const FEATURED_ORDER = [
-  'the-post-game-papers',
-  'unemployed-money-4eva',
-  'affirmations',
-];
-
-const featuredCandidates = posts.filter((p) => p.data.featured);
-const featuredById = new Map(featuredCandidates.map((p) => [p.id, p]));
-const orderedFeatured = FEATURED_ORDER.map((id) => featuredById.get(id)).filter(
-  (p): p is (typeof featuredCandidates)[number] => p != null,
-);
-const extraFeatured = featuredCandidates.filter((p) => !FEATURED_ORDER.includes(p.id));
-const featuredPosts = [...orderedFeatured, ...extraFeatured];
+const featuredPosts = posts.filter((p) => p.data.featured);
 
 const journalPosts = posts.filter(p => !p.data.featured);
 

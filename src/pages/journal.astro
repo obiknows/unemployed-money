@@ -5,6 +5,27 @@ import Layout from '../layouts/Layout.astro';
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 const posts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
+const postsByMonth = posts.reduce((groups, post) => {
+  const date = new Date(post.data.date);
+  const key = `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}`;
+  const existingGroup = groups.get(key);
+
+  if (existingGroup) {
+    existingGroup.posts.push(post);
+    return groups;
+  }
+
+  groups.set(key, {
+    label: date.toLocaleDateString('en-US', {
+      month: 'short',
+      year: '2-digit',
+      timeZone: 'UTC',
+    }).replace(' ', " '").toUpperCase(),
+    posts: [post],
+  });
+  return groups;
+}, new Map<string, { label: string; posts: typeof posts }>());
+
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('en-US', {
     day: '2-digit',
@@ -28,16 +49,25 @@ function formatDate(dateStr: string) {
     </h1>
   </div>
 
-  <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
-    {posts.map(post => (
-      <div class="my-2 flex flex-col items-center justify-center rounded border-b border-slate-200 bg-amber-100 px-4 py-4 hover:bg-amber-200 dark:border-slate-600 dark:bg-stone-600 dark:hover:bg-stone-500 md:my-0">
-        <a href={`/posts/${post.id}`} class="w-full text-center no-underline hover:no-underline">
-          <h2 class="my-2 text-center font-serif text-base font-bold leading-snug text-black hover:underline hover:text-red-800 dark:text-white dark:hover:text-red-300 md:text-lg">{post.data.title}</h2>
-        </a>
-        <div class="font-sans uppercase leading-relaxed text-slate-500 dark:text-slate-300">
-          <time>{formatDate(post.data.date)}</time>
+  <div class="space-y-10">
+    {Array.from(postsByMonth.values()).map((group) => (
+      <section>
+        <h2 class="mb-4 font-mono text-sm font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+          {group.label}
+        </h2>
+        <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
+          {group.posts.map(post => (
+            <div class="my-2 flex flex-col items-center justify-center rounded border-b border-slate-200 bg-amber-100 px-4 py-4 hover:bg-amber-200 dark:border-slate-600 dark:bg-stone-600 dark:hover:bg-stone-500 md:my-0">
+              <a href={`/posts/${post.id}`} class="w-full text-center no-underline hover:no-underline">
+                <h3 class="my-2 text-center font-serif text-base font-bold leading-snug text-black hover:underline hover:text-red-800 dark:text-white dark:hover:text-red-300 md:text-lg">{post.data.title}</h3>
+              </a>
+              <div class="font-sans uppercase leading-relaxed text-slate-500 dark:text-slate-300">
+                <time>{formatDate(post.data.date)}</time>
+              </div>
+            </div>
+          ))}
         </div>
-      </div>
+      </section>
     ))}
   </div>
 </Layout>
