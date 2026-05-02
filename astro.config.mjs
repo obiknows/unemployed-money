@@ -34,6 +34,15 @@ export default defineConfig({
     resolve: {
       dedupe: ['react', 'react-dom'],
     },
+    optimizeDeps: {
+      // Keystatic uses lodash CJS modules that need explicit interop while
+      // still being prebundled by Vite for browser compatibility.
+      include: [
+        '@keystatic/astro',
+        '@keystatic/core',
+      ],
+      needsInterop: ['lodash/debounce.js'],
+    },
     ssr: {
       noExternal: ['@keystatic/astro', '@keystatic/core'],
     },
